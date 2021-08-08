@@ -754,6 +754,24 @@ public:
     }   
 };
 
+/*
+ * 自旋锁
+ */
+class spinlock_mutex
+{
+    std::atomic_flag flag;
+public:
+    spinlock_mutex(): flag(ATOMIC_FLAG_INIT) {}
+    
+    void lock() {
+        while (flag.test_and_set(std::memory_order_acquire));
+    }
+
+    void unlock() {
+        flag.clear(std::memory_order_release);
+    }
+};
+
 //编码转换
 void TransCoding(const char* from_code, const char* to_code, const std::string& in, std::string& out);
 
