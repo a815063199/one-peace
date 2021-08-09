@@ -6,16 +6,20 @@ std::atomic<bool> x, y;
 std::atomic<int> z;
 
 void write_x_then_y() {
-    x.store(true, std::memory_order_relaxed);
+    //x.store(true, std::memory_order_relaxed);
+    x.store(true, std::memory_order_release);
     //std::atomic_thread_fence(std::memory_order_release);//加入屏障
-    y.store(true, std::memory_order_relaxed);
+    //y.store(true, std::memory_order_relaxed);
+    //y.store(true, std::memory_order_release);
 }
 
 void read_y_then_x() {
-    while (!y.load(std::memory_order_relaxed));
+    //while (!y.load(std::memory_order_relaxed));
     //y.load(std::memory_order_acquire);
+    //printf("y = %d\n", y.load());
     //std::atomic_thread_fence(std::memory_order_acquire);//加入屏障
-    if (x.load(std::memory_order_relaxed))
+    //if (x.load(std::memory_order_relaxed))
+    if (x.load(std::memory_order_acquire))
         ++z;
 }
 

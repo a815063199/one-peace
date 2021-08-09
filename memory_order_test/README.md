@@ -11,9 +11,9 @@
 # 二、内存序
 ## 1. memory_order_relaxed
 1. 松散顺序: 单线程的同一个变量的操作仍然服从happeds-before关系, 但是对于其他线程没有任何要求
-## 2. memory_order_release, memory_order_acquire
+## 2. memory_order_release => memory_order_acquire
 1. 获取-释放序列: 释放(release)操作和获取(acquire)操作同步
-## 3. memory_order_consume
+## 3. memory_order_release => memory_order_consume
 1. 获取-释放序列-数据依赖
 2. 适用于在原子操作载入指向某数据的指针的场合, 通过在载入上使用memory_order_consume, 以及在之前的存储上使用memory_order_release, 可以确保所指向的数据得到正确的同步
 ## 4. memory_order_acq_rel
@@ -25,12 +25,12 @@
 # 三、原子操作适用的内存序列
 ## 1. 存储(store)操作
 1. memory_order_relaxed
-2. memory_order_release
+2. memory_order_release (release可以理解为：刷新cache同步到内存)
 3. memory_order_seq_cst
 ## 2. 载入(load)操作
 1. memory_order_relaxed
 2. memory_order_consume
-3. memory_order_acquire
+3. memory_order_acquire (acquire可以理解为：从内存同步所有读写操作，将值更新到自己的cache，而不是直接读取未更新的cache)
 4. memory_order_seq_cst
 ## 3. 读-修改-写(read-modify_wirte)操作
 1. memory_order_relaxed

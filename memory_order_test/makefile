@@ -32,4 +32,4 @@ memory_barriers2:
 .PHONY: clean
 
 clean:
-	rm seq_cst relaxed relaxed2 acquire_release racquire_release2 release_sequence consume memory_barriers memory_barriers2
+	rm seq_cst relaxed relaxed2 acquire_release acquire_release2 release_sequence consume memory_barriers memory_barriers2
