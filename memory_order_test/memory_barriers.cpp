@@ -4,6 +4,7 @@
 
 std::atomic<bool> x, y;
 std::atomic<int> z;
+int a, b = 0;
 
 void write_x_then_y() {
     //x.store(true, std::memory_order_relaxed);
