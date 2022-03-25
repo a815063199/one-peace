@@ -234,3 +234,10 @@ void test_geo();
 
 void test_curses();
 void test_curses2();
+
+int find_first_k(int* a, int n, int k);
+int find_last_k(int* a, int n, int k);
+
+void vector_rotate(char* a, int n, int i);
+
+void longest_repeated_substr(char* a);

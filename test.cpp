@@ -482,21 +482,6 @@ int main(int argc, char const *argv[])
 {
     (void)argc;
     (void)argv;
-    /*
-    CGame game;
-    game.init();
-    game.start();
-    */
-    /*CSnowFlake  snowflake(0);
-    std::vector<std::thread> v;
-    for(int i = 0; i < 4; ++ i)
-    {
-        v.push_back(std::thread(thread_func, &snowflake));
-    }
-
-    std::for_each(v.begin(), v.end(), [](std::thread& th){
-        th.join();
-    });*/
     RBTree<int> int_rbt;
     //std::vector<int> vec{0, 4, 2, 5, 1, 3, 4, 8, 2};
     std::vector<int> vec{8, 1, 5, 0, 6, 3, 1, 9, 9};
@@ -536,11 +521,24 @@ int main(int argc, char const *argv[])
     }
     std::cout << std::endl;
 
-    thread_pool tp;
-    printf("debug\n");
-    tp.submit(TA());
-    //tp.run_pending_task();
-    sleep(5);
+    int a[] = {2, 2, 2, 2, 2, 2};
+    int b[] = {1, 2, 3, 4, 5, 6};
+    int c[] = {};
+    printf("find_first_k: %d\n", find_first_k(c, 0, 3));
+    printf("find_last_k: %d\n", find_last_k(c, 0, 3));
+
+
+    char d[] = "abcdefg";
+    printf("before rotate: %s\n", d);
+    vector_rotate(d, 7, 2);
+    printf("after rotate: %s\n", d);
+
+    char sentence[] = "Ask not what your country can do for you, but what you can do for your country";
+    longest_repeated_substr(sentence);
+    char sentence2[] = "banana";
+    longest_repeated_substr(sentence2);
+
+
 
 
     return 0;

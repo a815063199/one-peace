@@ -1021,3 +1021,120 @@ void cross_print() {
     print_odd.join();
     print_even.join();
 }
+
+int find_first_k(int* a, int n, int k) {
+    if (a == nullptr || n == 0) {
+        return -1;
+    }
+
+    int low = 0;
+    int up = n - 1;
+    int mid = 0;
+    int ret = 0;
+
+    while (low != up) {
+        mid = (low + up) / 2;
+        if (k > a[mid]) {
+            low = mid + 1;
+        } else {
+            up = mid;
+        }
+    }
+
+    if (a[up] != k) {
+        return -1;
+    } else {
+        return up;
+    }
+}
+
+int find_last_k(int* a, int n, int k) {
+    if (a == nullptr || n == 0) {
+        return -1;
+    }
+
+    int low = 0;
+    int up = n - 1;
+    int mid = 0;
+    int ret = 0;
+
+    while ((low + 1) < up) {
+        mid = (low + up) / 2;
+        if (k < a[mid]) {
+            up = mid - 1;
+        } else {
+            low = mid;
+        }
+    }
+
+    if (a[low + 1] == k) {
+        return low + 1;
+    } else if (a[low] == k) {
+        return low;
+    } {
+        return -1;
+    }
+}
+
+void do_reverse(char* a, int low, int up) {
+    int i = low;
+    int j = up;
+    for (; i < j; ++i, --j) {
+        char temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+}
+
+void vector_rotate(char* a, int n, int i) {
+    if (i < n) {
+        do_reverse(a, 0, i - 1);
+        do_reverse(a, i, n - 1);
+        do_reverse(a, 0, n - 1);
+    }
+}
+
+#define MAXN 5000000
+
+int comlen(char* p, char* q) {
+    if (p == nullptr || q == nullptr) {
+        return 0;
+    }
+    int i = 0;
+    while ((*p != '\0') && (*p++ == *q++)) {
+        ++i;
+    }
+    return i;
+}
+
+int pstrcmp(const void* a, const void* b) {
+    return strcmp(*(char**)a, *(char**)b);
+}
+
+void longest_repeated_substr(char* a) {
+    if (a == nullptr) {
+        return;
+    }
+
+    char** suffix = new char*[MAXN];
+    int count = 0;
+    while (a[count] != '\0') {
+        suffix[count] = &a[count];
+        ++count;
+    }
+
+    qsort(suffix, count, sizeof(char*), pstrcmp);
+
+    int max_len = 0;
+    int max_i = 0;
+    int temp_len = 0;
+    for (int i = 0; i < count; ++i) {
+        temp_len = comlen(suffix[i], suffix[i + 1]);
+        if (temp_len > max_len) {
+            max_len = temp_len;
+            max_i = i;
+        }
+    }
+
+    printf("the longest repeated substr : %.*s\n", max_len, suffix[max_i]);
+}
