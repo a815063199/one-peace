@@ -1,0 +1,6 @@
+0:name:Str
+1:sex:Str
+2:age:Int
+3:id:Int
+4:phones:StrArray
+5:addr:Address
